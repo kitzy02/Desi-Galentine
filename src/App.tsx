@@ -1,7 +1,12 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Hero from './components/phases/Hero'
+
 export default function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1>Pyaari Sakhi 💖</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
