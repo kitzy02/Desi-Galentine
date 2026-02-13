@@ -1,0 +1,39 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFC0CB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E30B5D;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB347;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5c518;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="64" cy="64" r="64" fill="#FFF9F0"/>
+  
+  <!-- Large heart -->
+  <path d="M 64 45 C 64 35 55 28 45 28 C 35 28 28 35 28 45 C 28 55 35 65 64 90 C 93 65 100 55 100 45 C 100 35 93 28 83 28 C 73 28 64 35 64 45 Z" fill="url(#heartGrad)" stroke="#E30B5D" stroke-width="2"/>
+  
+  <!-- Shine on heart -->
+  <ellipse cx="45" cy="42" rx="12" ry="15" fill="white" opacity="0.4"/>
+  
+  <!-- Small bow on top right -->
+  <g transform="translate(85, 25)">
+    <!-- Left bow loop -->
+    <ellipse cx="-8" cy="0" rx="8" ry="10" fill="url(#bowGrad)" stroke="#f5c518" stroke-width="1.5"/>
+    <!-- Right bow loop -->
+    <ellipse cx="8" cy="0" rx="8" ry="10" fill="url(#bowGrad)" stroke="#f5c518" stroke-width="1.5"/>
+    <!-- Center knot -->
+    <circle cx="0" cy="0" r="5" fill="#f5c518"/>
+    <!-- Shine -->
+    <circle cx="-5" cy="-3" r="3" fill="white" opacity="0.6"/>
+  </g>
+  
+  <!-- Sparkle decorations -->
+  <path d="M 25 30 L 27 35 L 32 37 L 27 39 L 25 44 L 23 39 L 18 37 L 23 35 Z" fill="#FFB347" opacity="0.8"/>
+  <path d="M 105 65 L 107 70 L 112 72 L 107 74 L 105 79 L 103 74 L 98 72 L 103 70 Z" fill="#FFC0CB" opacity="0.8"/>
+</svg>
