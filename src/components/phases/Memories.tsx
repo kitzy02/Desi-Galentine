@@ -6,6 +6,15 @@ import WashiTape from '../ui/WashiTape'
 import Petal from '../ui/Petal'
 import { content } from '../../constants/content'
 
+const petalSeeds = Array.from({ length: 6 }, (_, i) => ({
+  id: i,
+  left: `${10 + Math.random() * 80}%`,
+  size: 15 + Math.random() * 15,
+  duration: 20 + Math.random() * 10,
+  delay: Math.random() * 5,
+  rotateEnd: Math.random() * 360 + 360,
+}))
+
 export default function Memories() {
   const navigate = useNavigate()
 
@@ -13,29 +22,25 @@ export default function Memories() {
     <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
       {/* Floating Background Petals */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+        {petalSeeds.map((p) => (
           <motion.div
-            key={i}
+            key={p.id}
             className="absolute"
-            initial={{ 
-              x: `${Math.random() * 100}%`,
-              y: -50,
-              rotate: Math.random() * 360,
-              opacity: 0.4
-            }}
+            style={{ left: p.left }}
+            initial={{ y: -50, rotate: 0, opacity: 0 }}
             animate={{
               y: ['0vh', '110vh'],
-              rotate: [0, Math.random() * 360 + 360],
-              opacity: [0.4, 0.6, 0.4]
+              rotate: [0, p.rotateEnd],
+              opacity: [0, 0.5, 0.6, 0.5, 0],
             }}
             transition={{
-              duration: 20 + Math.random() * 10,
+              duration: p.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear"
+              delay: p.delay,
+              ease: 'linear',
             }}
           >
-            <Petal size={15 + Math.random() * 15} className="text-coquette-pink" />
+            <Petal size={p.size} className="text-coquette-pink" />
           </motion.div>
         ))}
       </div>
@@ -54,16 +59,12 @@ export default function Memories() {
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
         >
           <motion.h1
-            className="text-5xl md:text-6xl font-bold text-pinyon mb-4"
+            className="text-5xl md:text-6xl font-bold mb-4"
             style={{ fontFamily: 'var(--font-pinyon)' }}
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
           >
             <span className="gradient-text">
               {content.memories.title}
@@ -74,34 +75,34 @@ export default function Memories() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl text-charcoal-rose/70 italic text-playfair"
+            className="text-xl text-charcoal-rose/70 italic"
+            style={{ fontFamily: 'var(--font-playfair)' }}
           >
             {content.memories.subtitle}
           </motion.p>
 
-          {/* Decorative divider */}
+          {/* Gajra Divider */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, type: "spring" }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.5, type: 'spring' as const, stiffness: 120, damping: 14 }}
             className="flex justify-center mt-8"
           >
             <GajraDivider />
           </motion.div>
         </motion.div>
 
-        {/* Mirror Cards - Staggered "Messy-Cute" Layout */}
+        {/* Mirror Cards */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Layout Guide - Three cards in creative positioning */}
           <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center gap-12 md:gap-8 mb-20">
             
-            {/* Card 1: Tea Spiller - Left, slightly higher */}
+            {/* Card 1: Left, slightly higher */}
             <motion.div
               className="md:self-start md:-translate-y-8"
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: '-50px' }}
             >
               <MirrorCard
                 emoji={content.memories.cards[0].emoji}
@@ -112,13 +113,13 @@ export default function Memories() {
               />
             </motion.div>
 
-            {/* Card 2: Main Character - Center, lower */}
+            {/* Card 2: Center, lower */}
             <motion.div
               className="md:translate-y-12"
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: '-50px' }}
             >
               <MirrorCard
                 emoji={content.memories.cards[1].emoji}
@@ -129,13 +130,13 @@ export default function Memories() {
               />
             </motion.div>
 
-            {/* Card 3: Mirror - Right, medium height */}
+            {/* Card 3: Right */}
             <motion.div
               className="md:self-start"
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: '-50px' }}
             >
               <MirrorCard
                 emoji={content.memories.cards[2].emoji}
@@ -147,71 +148,60 @@ export default function Memories() {
             </motion.div>
           </div>
 
-          {/* Decorative scattered elements */}
+          {/* Decorative scattered emojis - desktop */}
           <motion.div
-            initial={{ opacity: 0, rotate: 0 }}
-            animate={{ 
-              opacity: 1,
-              rotate: [0, 5, -5, 0]
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, rotate: [0, 5, -5, 0] }}
             transition={{
               opacity: { delay: 1 },
-              rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+              rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
             }}
-            className="absolute top-10 left-10 text-4xl hidden lg:block"
+            className="absolute top-10 left-10 text-4xl hidden lg:block pointer-events-none"
           >
             ☕
           </motion.div>
           
           <motion.div
-            initial={{ opacity: 0, rotate: 0 }}
-            animate={{ 
-              opacity: 1,
-              rotate: [0, -5, 5, 0]
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, rotate: [0, -5, 5, 0] }}
             transition={{
               opacity: { delay: 1.2 },
-              rotate: { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
+              rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
             }}
-            className="absolute top-20 right-20 text-4xl hidden lg:block"
+            className="absolute top-20 right-20 text-4xl hidden lg:block pointer-events-none"
           >
             💄
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ 
-              opacity: 1,
-              scale: [1, 1.1, 1]
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, scale: [1, 1.1, 1] }}
             transition={{
               opacity: { delay: 1.4 },
-              scale: { duration: 2, repeat: Infinity }
+              scale: { duration: 2, repeat: Infinity },
             }}
-            className="absolute bottom-32 left-1/4 text-3xl hidden lg:block"
+            className="absolute bottom-32 left-1/4 text-3xl hidden lg:block pointer-events-none"
           >
             🎬
           </motion.div>
-
         </div>
 
         {/* Continue Button */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
+          transition={{ delay: 1.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex justify-center"
         >
           <motion.button
             onClick={() => navigate('/quiz')}
             className="px-10 py-4 bg-gradient-to-r from-rani-glow to-gulabi-500 text-white 
                      rounded-full text-lg md:text-xl font-medium shadow-lg 
-                     hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                     hover:shadow-2xl transition-all duration-300 relative overflow-hidden group cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Shimmer effect */}
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
                            transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             
             <span className="relative z-10 flex items-center gap-2">
@@ -226,18 +216,18 @@ export default function Memories() {
           </motion.button>
         </motion.div>
 
-        {/* Bottom decorative note */}
+        {/* Bottom note */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
           className="text-center text-sm text-charcoal-rose/50 italic mt-8"
         >
-          Click each mirror to read the full message 💕
+          Click each mirror to read the full message
         </motion.p>
       </div>
 
-      {/* Bottom Washi Tape Decoration */}
+      {/* Bottom Washi Tape */}
       <div className="absolute bottom-0 left-1/4 pointer-events-none">
         <WashiTape variant="floral" rotation={-5} className="opacity-50" />
       </div>
