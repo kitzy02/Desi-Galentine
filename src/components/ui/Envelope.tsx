@@ -96,7 +96,7 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
           whileTap={{ scale: 0.9 }}
         >
           {/* Seal circle - INCREASED size */}
-          <div className="relative w-18 h-18 md:w-24 md:h-24 bg-gradient-to-br from-rani-glow to-gulabi-700 
+          <div className="relative w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-rani-glow to-gulabi-700 
                         rounded-full shadow-lg border-4 border-rani-glow/50
                         flex items-center justify-center">
             {/* Heart stamp */}

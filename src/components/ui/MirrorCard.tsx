@@ -21,7 +21,12 @@ export default function MirrorCard({
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, rotate: -5 }}
-      animate={{ opacity: 1, y: 0, rotate: 0 }}
+      animate={{ 
+        opacity: 1, 
+        y: 0, 
+        rotateY: isFlipped ? 180 : 0,
+        rotate: 0 
+      }}
       transition={{ 
         duration: 0.6, 
         delay,
@@ -30,13 +35,8 @@ export default function MirrorCard({
       }}
       className="flip-card w-56 sm:w-64 h-72 sm:h-80 cursor-pointer"
       onClick={() => setIsFlipped(!isFlipped)}
-      style={{ 
-        transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-        transition: 'transform 0.8s',
-        transformStyle: 'preserve-3d'
-      }}
-    >
-      {/* FRONT SIDE - Mirror */}
+      style={{ transformStyle: 'preserve-3d' }}
+    >      {/* FRONT SIDE - Mirror */}
       <div 
         className="absolute inset-0"
         style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
