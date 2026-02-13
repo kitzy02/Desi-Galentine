@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import Envelope from '../ui/Envelope'
@@ -6,6 +7,7 @@ import Petal from '../ui/Petal'
 import { content } from '../../constants/content'
 
 export default function Proposal() {
+  const navigate = useNavigate()
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false)
   const [showQuestion, setShowQuestion] = useState(false)
   const [answer, setAnswer] = useState<'yes' | 'playful' | null>(null)
@@ -21,13 +23,13 @@ export default function Proposal() {
   const handleAnswer = (choice: 'yes' | 'playful') => {
     setAnswer(choice)
     
-    // Trigger confetti celebration
+    // UPDATED: PINK-ONLY confetti colors (NO YELLOW!)
+    const pinkConfettiColors = ['#FFC0CB', '#FFB3D9', '#E30B5D', '#EB2F96', '#F759AB']
+    
     if (choice === 'yes') {
       // Epic confetti for "Yes"
       const duration = 5000
       const end = Date.now() + duration
-
-      const colors = ['#FFC0CB', '#E30B5D', '#FFB347', '#f5c518']
 
       const frame = () => {
         confetti({
@@ -35,7 +37,7 @@ export default function Proposal() {
           angle: 60,
           spread: 55,
           origin: { x: 0 },
-          colors: colors,
+          colors: pinkConfettiColors,
           shapes: ['circle', 'square'],
           scalar: 1.2
         })
@@ -44,7 +46,7 @@ export default function Proposal() {
           angle: 120,
           spread: 55,
           origin: { x: 1 },
-          colors: colors,
+          colors: pinkConfettiColors,
           shapes: ['circle', 'square'],
           scalar: 1.2
         })
@@ -61,29 +63,36 @@ export default function Proposal() {
           particleCount: 100,
           spread: 160,
           origin: { y: 0.6 },
-          colors: colors,
+          colors: pinkConfettiColors,
           shapes: ['circle'],
           scalar: 2
         })
       }, 300)
     } else {
-      // Sweet confetti for "treats" answer
+      // Sweet confetti for "treats" answer - ALSO PINK ONLY
       confetti({
         particleCount: 50,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#FFC0CB', '#FFB347', '#f5c518'],
+        colors: ['#FFC0CB', '#FFB3D9', '#F759AB'],
         shapes: ['circle'],
         scalar: 1.5
       })
     }
   }
 
+  // NEW: Replay function
+  const handleReplay = () => {
+    setIsEnvelopeOpen(false)
+    setShowQuestion(false)
+    setAnswer(null)
+  }
+
   return (
     <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
-      {/* Floating Background Petals */}
+      {/* Floating Background Petals - REDUCED to 8 from 12 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -91,15 +100,15 @@ export default function Proposal() {
               x: `${Math.random() * 100}%`,
               y: -50,
               rotate: Math.random() * 360,
-              opacity: 0.4
+              opacity: 0.3 // MORE SUBTLE: was 0.4
             }}
             animate={{
               y: ['0vh', '110vh'],
               rotate: [0, Math.random() * 360 + 720],
-              opacity: [0.4, 0.7, 0.4]
+              opacity: [0.3, 0.5, 0.3] // MORE SUBTLE: was 0.4-0.7
             }}
             transition={{
-              duration: 20 + Math.random() * 10,
+              duration: 25 + Math.random() * 10, // SLOWER: was 20
               repeat: Infinity,
               delay: Math.random() * 5,
               ease: "linear"
@@ -121,13 +130,13 @@ export default function Proposal() {
             transition={{ duration: 0.8, type: "spring" }}
             className="text-center"
           >
-            {/* Headline */}
+            {/* Headline - UPDATED font */}
             <motion.h1
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-6xl md:text-8xl font-bold text-pinyon mb-8"
-              style={{ fontFamily: 'var(--font-pinyon)' }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8"
+              style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}
             >
               <span className="gradient-text">
                 {content.proposal.headline}
@@ -198,7 +207,8 @@ export default function Proposal() {
                   repeat: Infinity
                 }}
               >
-                <h2 className="text-3xl md:text-5xl text-charcoal-rose font-bold mb-8 text-playfair leading-relaxed">
+                <h2 className="text-3xl md:text-5xl text-charcoal-rose font-bold mb-8 leading-relaxed"
+                    style={{ fontFamily: 'var(--font-display)' }}>
                   {content.proposal.question}
                 </h2>
 
@@ -222,15 +232,15 @@ export default function Proposal() {
                       {content.proposal.yesButton}
                     </span>
 
-                    {/* Pulsating glow */}
+                    {/* Pulsating glow - SUBTLE */}
                     <motion.div
-                      className="absolute inset-0 rounded-full bg-rani-glow opacity-40"
+                      className="absolute inset-0 rounded-full bg-rani-glow opacity-30"
                       animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.4, 0.6, 0.4]
+                        scale: [1, 1.05, 1],
+                        opacity: [0.3, 0.4, 0.3]
                       }}
                       transition={{
-                        duration: 1.5,
+                        duration: 2,
                         repeat: Infinity
                       }}
                     />
@@ -239,7 +249,7 @@ export default function Proposal() {
                   {/* Playful Button */}
                   <motion.button
                     onClick={() => handleAnswer('playful')}
-                    className="px-8 py-4 bg-gradient-to-r from-marigold-sun to-haldi text-charcoal-rose 
+                    className="px-8 py-4 bg-gradient-to-r from-gulabi-300 to-coquette-pink text-charcoal-rose 
                              rounded-full text-xl md:text-2xl font-medium shadow-lg 
                              hover:shadow-2xl transition-all duration-300 relative overflow-hidden group
                              min-w-[200px]"
@@ -291,15 +301,15 @@ export default function Proposal() {
               transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
               className="text-center max-w-2xl"
             >
-              {/* Giant celebration emoji */}
+              {/* Giant celebration emoji - REDUCED rotation speed */}
               <motion.div
                 animate={{
                   scale: [1, 1.3, 1],
-                  rotate: [0, 360]
+                  rotate: [0, 180] // SLOWER: was 360
                 }}
                 transition={{
                   scale: { duration: 2, repeat: Infinity },
-                  rotate: { duration: 3, repeat: Infinity, ease: "linear" }
+                  rotate: { duration: 6, repeat: Infinity, ease: "linear" } // SLOWER: was 3s
                 }}
                 className="text-9xl mb-8"
               >
@@ -321,8 +331,8 @@ export default function Proposal() {
                   repeat: Infinity
                 }}
               >
-                <h2 className="text-4xl md:text-6xl text-rani-glow font-bold mb-6 text-pinyon"
-                    style={{ fontFamily: 'var(--font-pinyon)' }}>
+                <h2 className="text-4xl md:text-6xl text-rani-glow font-bold mb-6"
+                    style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}>
                   {answer === 'yes' ? content.proposal.yesMessage : content.proposal.playfulMessage}
                 </h2>
 
@@ -361,6 +371,36 @@ export default function Proposal() {
                 <p className="text-2xl">
                   {content.footer.nazarNaLage}
                 </p>
+              </motion.div>
+
+              {/* NEW: Replay Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+                className="mt-8 flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <motion.button
+                  onClick={handleReplay}
+                  className="px-8 py-3 bg-gradient-to-r from-gulabi-200 to-gulabi-300 
+                           text-charcoal-rose rounded-full text-base font-medium 
+                           shadow-md hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Experience Again ↺
+                </motion.button>
+
+                <motion.button
+                  onClick={() => navigate('/')}
+                  className="px-8 py-3 bg-gradient-to-r from-coquette-pink to-gulabi-300 
+                           text-charcoal-rose rounded-full text-base font-medium 
+                           shadow-md hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start Over 🌸
+                </motion.button>
               </motion.div>
             </motion.div>
           )}

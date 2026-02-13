@@ -16,8 +16,8 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
           clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
         }}
       >
-        {/* Envelope decorative pattern */}
-        <div className="absolute inset-0 opacity-10"
+        {/* Envelope decorative pattern - INCREASED opacity */}
+        <div className="absolute inset-0 opacity-15"
              style={{
                backgroundImage: `repeating-linear-gradient(
                  45deg,
@@ -29,8 +29,8 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
              }}
         />
 
-        {/* Heart decoration on envelope */}
-        <div className="absolute bottom-4 right-4 text-3xl opacity-60">
+        {/* Heart decoration on envelope - REPOSITIONED to center of flap area */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 text-3xl opacity-60">
           💕
         </div>
       </motion.div>
@@ -87,7 +87,7 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
         </svg>
       </motion.div>
 
-      {/* Wax Seal */}
+      {/* Wax Seal - SLIGHTLY LARGER on desktop */}
       {!isOpen && (
         <motion.button
           onClick={onOpen}
@@ -95,8 +95,8 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
           whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
           whileTap={{ scale: 0.9 }}
         >
-          {/* Seal circle */}
-          <div className="relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-rani-glow to-gulabi-700 
+          {/* Seal circle - INCREASED size */}
+          <div className="relative w-18 h-18 md:w-24 md:h-24 bg-gradient-to-br from-rani-glow to-gulabi-700 
                         rounded-full shadow-lg border-4 border-rani-glow/50
                         flex items-center justify-center">
             {/* Heart stamp */}
@@ -140,12 +140,12 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
         </motion.button>
       )}
 
-      {/* Letter peeking out (when opened) */}
+      {/* Letter peeking out (when opened) - SMOOTHER animation */}
       {isOpen && (
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: -60, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.8 }} // SLOWER: was 0.4/0.6
           className="absolute top-20 left-1/2 -translate-x-1/2 w-64 md:w-72 z-10"
         >
           <div className="bg-pearl-petal rounded-lg shadow-xl p-4 border-2 border-coquette-pink">

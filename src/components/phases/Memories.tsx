@@ -6,11 +6,12 @@ import WashiTape from '../ui/WashiTape'
 import Petal from '../ui/Petal'
 import { content } from '../../constants/content'
 
-const petalSeeds = Array.from({ length: 6 }, (_, i) => ({
+// REDUCED petals from 6 to 5
+const petalSeeds = Array.from({ length: 5 }, (_, i) => ({
   id: i,
   left: `${10 + Math.random() * 80}%`,
   size: 15 + Math.random() * 15,
-  duration: 20 + Math.random() * 10,
+  duration: 25 + Math.random() * 15, // SLOWER: was 20-30
   delay: Math.random() * 5,
   rotateEnd: Math.random() * 360 + 360,
 }))
@@ -20,7 +21,7 @@ export default function Memories() {
 
   return (
     <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
-      {/* Floating Background Petals */}
+      {/* Floating Background Petals - MORE SUBTLE */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {petalSeeds.map((p) => (
           <motion.div
@@ -31,7 +32,7 @@ export default function Memories() {
             animate={{
               y: ['0vh', '110vh'],
               rotate: [0, p.rotateEnd],
-              opacity: [0, 0.5, 0.6, 0.5, 0],
+              opacity: [0, 0.3, 0.35, 0.3, 0], // MORE SUBTLE: was 0.5-0.6
             }}
             transition={{
               duration: p.duration,
@@ -53,8 +54,8 @@ export default function Memories() {
         <WashiTape variant="gold" rotation={15} className="opacity-60" />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-6 py-16">
+      {/* Main Content - UPDATED container */}
+      <div className="relative z-10 container mx-auto px-6 sm:px-8 lg:px-12 py-16 max-w-7xl">
         {/* Page Title */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -63,8 +64,8 @@ export default function Memories() {
           className="text-center mb-16"
         >
           <motion.h1
-            className="text-5xl md:text-6xl font-bold mb-4"
-            style={{ fontFamily: 'var(--font-pinyon)' }}
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             <span className="gradient-text">
               {content.memories.title}
@@ -76,7 +77,7 @@ export default function Memories() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-xl text-charcoal-rose/70 italic"
-            style={{ fontFamily: 'var(--font-playfair)' }}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             {content.memories.subtitle}
           </motion.p>
@@ -92,13 +93,13 @@ export default function Memories() {
           </motion.div>
         </motion.div>
 
-        {/* Mirror Cards */}
+        {/* Mirror Cards - CRITICAL FIX: Removed all translate-y, added proper gaps */}
         <div className="relative max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center gap-12 md:gap-8 mb-20">
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center 
+                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-44">
             
-            {/* Card 1: Left, slightly higher */}
+            {/* Card 1: NO MORE translate-y offset */}
             <motion.div
-              className="md:self-start md:-translate-y-8"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -113,9 +114,8 @@ export default function Memories() {
               />
             </motion.div>
 
-            {/* Card 2: Center, lower */}
+            {/* Card 2: NO MORE translate-y offset */}
             <motion.div
-              className="md:translate-y-12"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -130,9 +130,8 @@ export default function Memories() {
               />
             </motion.div>
 
-            {/* Card 3: Right */}
+            {/* Card 3: NO MORE translate-y offset */}
             <motion.div
-              className="md:self-start"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -148,45 +147,10 @@ export default function Memories() {
             </motion.div>
           </div>
 
-          {/* Decorative scattered emojis - desktop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, rotate: [0, 5, -5, 0] }}
-            transition={{
-              opacity: { delay: 1 },
-              rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-            }}
-            className="absolute top-10 left-10 text-4xl hidden lg:block pointer-events-none"
-          >
-            ☕
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, rotate: [0, -5, 5, 0] }}
-            transition={{
-              opacity: { delay: 1.2 },
-              rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
-            }}
-            className="absolute top-20 right-20 text-4xl hidden lg:block pointer-events-none"
-          >
-            💄
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: [1, 1.1, 1] }}
-            transition={{
-              opacity: { delay: 1.4 },
-              scale: { duration: 2, repeat: Infinity },
-            }}
-            className="absolute bottom-32 left-1/4 text-3xl hidden lg:block pointer-events-none"
-          >
-            🎬
-          </motion.div>
+          {/* REMOVED: Decorative scattered emojis (☕💄🎬) - they were visual noise */}
         </div>
 
-        {/* Continue Button */}
+        {/* Continue Button - Now with guaranteed spacing above */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -216,14 +180,14 @@ export default function Memories() {
           </motion.button>
         </motion.div>
 
-        {/* Bottom note */}
+        {/* Bottom note - Updated text */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
           className="text-center text-sm text-charcoal-rose/50 italic mt-8"
         >
-          Click each mirror to read the full message
+          Click each mirror to flip and read the message
         </motion.p>
       </div>
 

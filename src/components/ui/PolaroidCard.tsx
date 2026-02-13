@@ -24,14 +24,14 @@ export default function PolaroidCard({
       initial={{ 
         opacity: 0, 
         y: 50,
-        rotate: side === 'left' ? -15 : 15
+        rotate: side === 'left' ? -6 : 6 // REDUCED: was -15/15
       }}
       animate={{ 
         opacity: 1, 
         y: 0,
         rotate: isSelected 
           ? 0 
-          : (side === 'left' ? -8 : 8)
+          : (side === 'left' ? -4 : 4) // REDUCED: was -8/8
       }}
       whileHover={{
         scale: 1.05,
@@ -52,9 +52,9 @@ export default function PolaroidCard({
         ${isSelected ? 'z-20' : 'z-10'}
       `}
     >
-      {/* Polaroid Frame */}
+      {/* Polaroid Frame - RESPONSIVE SIZING */}
       <div className={`
-        relative w-64 h-80 bg-white rounded-lg shadow-2xl p-4
+        relative w-56 sm:w-64 h-72 sm:h-80 bg-white rounded-lg shadow-2xl p-4
         transition-all duration-300
         ${isSelected 
           ? 'ring-4 ring-rani-glow shadow-[0_0_30px_rgba(227,11,93,0.5)]' 
@@ -62,7 +62,7 @@ export default function PolaroidCard({
         }
       `}>
         {/* Photo Area */}
-        <div className="relative w-full h-56 bg-gradient-to-br from-pearl-petal to-gulabi-100 
+        <div className="relative w-full h-48 sm:h-56 bg-gradient-to-br from-pearl-petal to-gulabi-100 
                       rounded-sm overflow-hidden flex items-center justify-center
                       border-2 border-gray-100">
           
@@ -77,7 +77,7 @@ export default function PolaroidCard({
               repeat: isSelected ? Infinity : 0,
               repeatDelay: 2
             }}
-            className="text-8xl"
+            className="text-7xl sm:text-8xl"
           >
             {emoji}
           </motion.div>
@@ -109,10 +109,11 @@ export default function PolaroidCard({
         {/* Label Area (bottom white space of polaroid) */}
         <div className="mt-3 space-y-1">
           <h3 className={`
-            text-xl font-bold text-playfair text-center
+            text-xl font-bold text-center
             ${isSelected ? 'text-rani-glow' : 'text-charcoal-rose'}
             transition-colors duration-300
-          `}>
+          `}
+          style={{ fontFamily: 'var(--font-display)' }}>
             {label}
           </h3>
           
@@ -123,10 +124,10 @@ export default function PolaroidCard({
           )}
         </div>
 
-        {/* Tape effect on top */}
+        {/* Tape effect on top - MORE VISIBLE */}
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 
-                      bg-coquette-pink/40 backdrop-blur-sm rounded-sm
-                      shadow-md border border-coquette-pink/30" />
+                      bg-coquette-pink/60 backdrop-blur-sm rounded-sm
+                      shadow-md border border-coquette-pink/50" />
 
         {/* Corner fold effect */}
         <div className="absolute bottom-4 right-4 w-0 h-0 

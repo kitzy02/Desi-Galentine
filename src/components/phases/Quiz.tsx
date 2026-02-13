@@ -19,34 +19,31 @@ export default function Quiz() {
 
   const questions = content.quiz.questions
 
-  // Check if all questions answered
   const allAnswered = Object.values(answers).every(answer => answer !== null)
 
-  // Handle answer selection
   const handleAnswer = (questionId: string, answer: Answer) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: answer
     }))
 
-    // Auto-advance to next question after a brief delay
+    // INCREASED auto-advance delay: was 600ms, now 900ms
     if (currentQuestion < questions.length - 1) {
       setTimeout(() => {
         setCurrentQuestion(prev => prev + 1)
-      }, 600)
+      }, 900)
     } else {
-      // Show result message after last question
       setTimeout(() => {
         setShowResult(true)
-      }, 600)
+      }, 900)
     }
   }
 
   return (
     <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
-      {/* Floating Background Petals */}
+      {/* Floating Background Petals - REDUCED from 8 to 5 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -59,10 +56,10 @@ export default function Quiz() {
             animate={{
               y: ['0vh', '110vh'],
               rotate: [0, Math.random() * 360 + 360],
-              opacity: [0.3, 0.5, 0.3]
+              opacity: [0.2, 0.3, 0.2] // MORE SUBTLE: was 0.3-0.5
             }}
             transition={{
-              duration: 25 + Math.random() * 10,
+              duration: 30 + Math.random() * 10, // SLOWER: was 25
               repeat: Infinity,
               delay: Math.random() * 5,
               ease: "linear"
@@ -87,7 +84,7 @@ export default function Quiz() {
       />
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-6 py-16">
+      <div className="relative z-10 container mx-auto px-6 sm:px-8 lg:px-12 py-16 max-w-7xl">
         {/* Page Title */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -96,8 +93,8 @@ export default function Quiz() {
           className="text-center mb-12"
         >
           <motion.h1
-            className="text-5xl md:text-6xl font-bold text-pinyon mb-4"
-            style={{ fontFamily: 'var(--font-pinyon)' }}
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             <span className="gradient-text">
               {content.quiz.title}
@@ -108,13 +105,14 @@ export default function Quiz() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl text-charcoal-rose/70 italic text-playfair"
+            className="text-xl text-charcoal-rose/70 italic"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             {content.quiz.subtitle}
           </motion.p>
         </motion.div>
 
-        {/* Progress Indicator */}
+        {/* Progress Indicator - IMPROVED: Only current unanswered question pulses */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -127,18 +125,22 @@ export default function Quiz() {
               className={`
                 w-3 h-3 rounded-full transition-all duration-300
                 ${answers[questions[index].id] !== null
-                  ? 'bg-rani-glow w-8'
+                  ? 'bg-rani-glow w-8' // STATIC when answered (no animation)
                   : currentQuestion === index
-                    ? 'bg-gulabi-400 scale-125'
+                    ? 'bg-gulabi-400'
                     : 'bg-gulabi-200'
                 }
               `}
               animate={{
-                scale: currentQuestion === index ? [1, 1.2, 1] : 1
+                scale: currentQuestion === index && answers[questions[index].id] === null
+                  ? [1, 1.2, 1]
+                  : 1
               }}
               transition={{
                 duration: 1,
-                repeat: currentQuestion === index ? Infinity : 0
+                repeat: currentQuestion === index && answers[questions[index].id] === null
+                  ? Infinity
+                  : 0
               }}
             />
           ))}
@@ -164,7 +166,8 @@ export default function Quiz() {
                 <p className="text-sm text-rani-glow font-semibold mb-2">
                   Question {currentQuestion + 1} of {questions.length}
                 </p>
-                <h2 className="text-2xl md:text-3xl font-bold text-charcoal-rose text-playfair">
+                <h2 className="text-2xl md:text-3xl font-bold text-charcoal-rose" 
+                    style={{ fontFamily: 'var(--font-display)' }}>
                   Which do you prefer?
                 </h2>
               </motion.div>
@@ -182,13 +185,13 @@ export default function Quiz() {
                   delay={0.2}
                 />
 
-                {/* VS Divider */}
+                {/* VS Divider - UPDATED: Playfair instead of Pinyon */}
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ delay: 0.5, type: "spring" }}
-                  className="text-4xl font-bold text-rani-glow text-pinyon"
-                  style={{ fontFamily: 'var(--font-pinyon)' }}
+                  className="text-3xl font-semibold text-rani-glow"
+                  style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}
                 >
                   or
                 </motion.div>
@@ -252,7 +255,8 @@ export default function Quiz() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="text-xl text-rani-glow font-semibold text-playfair italic"
+                  className="text-xl text-rani-glow font-semibold italic"
+                  style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {content.quiz.cta}
                 </motion.p>
