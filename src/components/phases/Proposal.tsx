@@ -14,7 +14,6 @@ export default function Proposal() {
 
   const handleOpenEnvelope = () => {
     setIsEnvelopeOpen(true)
-    // Show question after envelope animation
     setTimeout(() => {
       setShowQuestion(true)
     }, 1000)
@@ -22,12 +21,10 @@ export default function Proposal() {
 
   const handleAnswer = (choice: 'yes' | 'playful') => {
     setAnswer(choice)
-    
-    // UPDATED: PINK-ONLY confetti colors (NO YELLOW!)
+
     const pinkConfettiColors = ['#FFC0CB', '#FFB3D9', '#E30B5D', '#EB2F96', '#F759AB']
-    
+
     if (choice === 'yes') {
-      // Epic confetti for "Yes"
       const duration = 5000
       const end = Date.now() + duration
 
@@ -57,7 +54,6 @@ export default function Proposal() {
       }
       frame()
 
-      // Heart burst in center
       setTimeout(() => {
         confetti({
           particleCount: 100,
@@ -69,7 +65,6 @@ export default function Proposal() {
         })
       }, 300)
     } else {
-      // Sweet confetti for "treats" answer - ALSO PINK ONLY
       confetti({
         particleCount: 50,
         spread: 70,
@@ -81,7 +76,6 @@ export default function Proposal() {
     }
   }
 
-  // NEW: Replay function
   const handleReplay = () => {
     setIsEnvelopeOpen(false)
     setShowQuestion(false)
@@ -90,25 +84,25 @@ export default function Proposal() {
 
   return (
     <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
-      {/* Floating Background Petals - REDUCED to 8 from 12 */}
+      {/* Floating Background Petals */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
-            initial={{ 
+            initial={{
               x: `${Math.random() * 100}%`,
               y: -50,
               rotate: Math.random() * 360,
-              opacity: 0.3 // MORE SUBTLE: was 0.4
+              opacity: 0.3
             }}
             animate={{
               y: ['0vh', '110vh'],
               rotate: [0, Math.random() * 360 + 720],
-              opacity: [0.3, 0.5, 0.3] // MORE SUBTLE: was 0.4-0.7
+              opacity: [0.3, 0.5, 0.3]
             }}
             transition={{
-              duration: 25 + Math.random() * 10, // SLOWER: was 20
+              duration: 25 + Math.random() * 10,
               repeat: Infinity,
               delay: Math.random() * 5,
               ease: "linear"
@@ -119,10 +113,8 @@ export default function Proposal() {
         ))}
       </div>
 
-      {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-16">
         
-        {/* Initial State - Envelope */}
         {!showQuestion && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -130,7 +122,6 @@ export default function Proposal() {
             transition={{ duration: 0.8, type: "spring" }}
             className="text-center"
           >
-            {/* Headline - UPDATED font */}
             <motion.h1
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -143,7 +134,6 @@ export default function Proposal() {
               </span>
             </motion.h1>
 
-            {/* Envelope */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -153,7 +143,6 @@ export default function Proposal() {
               <Envelope isOpen={isEnvelopeOpen} onOpen={handleOpenEnvelope} />
             </motion.div>
 
-            {/* Hint text */}
             {!isEnvelopeOpen && (
               <motion.p
                 initial={{ opacity: 0 }}
@@ -167,7 +156,6 @@ export default function Proposal() {
           </motion.div>
         )}
 
-        {/* Question State */}
         <AnimatePresence>
           {showQuestion && !answer && (
             <motion.div
@@ -177,22 +165,6 @@ export default function Proposal() {
               transition={{ duration: 0.6, type: "spring" }}
               className="text-center max-w-3xl"
             >
-              {/* Decorative hearts */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 10, -10, 0]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity
-                }}
-                className="text-7xl mb-8"
-              >
-                💝
-              </motion.div>
-
-              {/* The Question */}
               <motion.div
                 className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-4 border-coquette-pink mb-8"
                 animate={{
@@ -207,14 +179,14 @@ export default function Proposal() {
                   repeat: Infinity
                 }}
               >
-                <h2 className="text-3xl md:text-5xl text-charcoal-rose font-bold mb-8 leading-relaxed"
-                    style={{ fontFamily: 'var(--font-display)' }}>
+                <h2
+                  className="text-3xl md:text-5xl text-charcoal-rose font-bold mb-8 leading-relaxed"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
                   {content.proposal.question}
                 </h2>
 
-                {/* Answer Buttons */}
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                  {/* Yes Button */}
                   <motion.button
                     onClick={() => handleAnswer('yes')}
                     className="px-8 py-4 bg-gradient-to-r from-rani-glow to-gulabi-500 text-white 
@@ -224,15 +196,11 @@ export default function Proposal() {
                     whileHover={{ scale: 1.1, rotate: [0, -2, 2, 0] }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {/* Shimmer effect */}
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 
                                    transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    
                     <span className="relative z-10">
                       {content.proposal.yesButton}
                     </span>
-
-                    {/* Pulsating glow - SUBTLE */}
                     <motion.div
                       className="absolute inset-0 rounded-full bg-rani-glow opacity-30"
                       animate={{
@@ -246,7 +214,6 @@ export default function Proposal() {
                     />
                   </motion.button>
 
-                  {/* Playful Button */}
                   <motion.button
                     onClick={() => handleAnswer('playful')}
                     className="px-8 py-4 bg-gradient-to-r from-gulabi-300 to-coquette-pink text-charcoal-rose 
@@ -256,43 +223,18 @@ export default function Proposal() {
                     whileHover={{ scale: 1.1, rotate: [0, 2, -2, 0] }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {/* Shimmer effect */}
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 
                                    transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    
                     <span className="relative z-10">
                       {content.proposal.playfulButton}
                     </span>
                   </motion.button>
                 </div>
               </motion.div>
-
-              {/* Decorative elements */}
-              <div className="flex justify-center gap-8 text-4xl">
-                <motion.span
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  ✨
-                </motion.span>
-                <motion.span
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  💕
-                </motion.span>
-                <motion.span
-                  animate={{ rotate: [0, -360] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  ✨
-                </motion.span>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Success State */}
         <AnimatePresence>
           {answer && (
             <motion.div
@@ -301,22 +243,6 @@ export default function Proposal() {
               transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
               className="text-center max-w-2xl"
             >
-              {/* Giant celebration emoji - REDUCED rotation speed */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.3, 1],
-                  rotate: [0, 180] // SLOWER: was 360
-                }}
-                transition={{
-                  scale: { duration: 2, repeat: Infinity },
-                  rotate: { duration: 6, repeat: Infinity, ease: "linear" } // SLOWER: was 3s
-                }}
-                className="text-9xl mb-8"
-              >
-                {answer === 'yes' ? '💖' : '🧁'}
-              </motion.div>
-
-              {/* Success Message */}
               <motion.div
                 className="bg-white rounded-3xl p-10 md:p-16 shadow-2xl border-4 border-rani-glow"
                 animate={{
@@ -331,34 +257,16 @@ export default function Proposal() {
                   repeat: Infinity
                 }}
               >
-                <h2 className="text-4xl md:text-6xl text-rani-glow font-bold mb-6"
-                    style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}>
-                  {answer === 'yes' ? content.proposal.yesMessage : content.proposal.playfulMessage}
+                <h2
+                  className="text-4xl md:text-6xl text-rani-glow font-bold mb-6"
+                  style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}
+                >
+                  {answer === 'yes'
+                    ? content.proposal.yesMessage
+                    : content.proposal.playfulMessage}
                 </h2>
-
-                {/* Decorative sparkles */}
-                <div className="flex justify-center gap-6 mt-8 text-5xl">
-                  {[...Array(5)].map((_, i) => (
-                    <motion.span
-                      key={i}
-                      animate={{
-                        y: [0, -20, 0],
-                        opacity: [0.5, 1, 0.5],
-                        scale: [1, 1.3, 1]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.2
-                      }}
-                    >
-                      {i % 2 === 0 ? '✨' : '💕'}
-                    </motion.span>
-                  ))}
-                </div>
               </motion.div>
 
-              {/* Footer message */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -373,7 +281,6 @@ export default function Proposal() {
                 </p>
               </motion.div>
 
-              {/* NEW: Replay Button */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

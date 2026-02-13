@@ -229,21 +229,6 @@ export default function Quiz() {
               transition={{ duration: 0.6, type: "spring" }}
               className="max-w-2xl mx-auto text-center"
             >
-              {/* Decorative elements */}
-              <motion.div
-                animate={{
-                  rotate: [0, 10, -10, 0],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity
-                }}
-                className="text-6xl mb-6"
-              >
-                💕
-              </motion.div>
-
               {/* Result card */}
               <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl 
                            border-4 border-coquette-pink mb-8">
@@ -260,28 +245,6 @@ export default function Quiz() {
                 >
                   {content.quiz.cta}
                 </motion.p>
-
-                {/* Decorative sparkles */}
-                <div className="flex justify-center gap-4 mt-6 text-3xl">
-                  <motion.span
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  >
-                    ✨
-                  </motion.span>
-                  <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    🎀
-                  </motion.span>
-                  <motion.span
-                    animate={{ rotate: [0, -360] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  >
-                    ✨
-                  </motion.span>
-                </div>
               </div>
 
               {/* Continue Button */}

@@ -96,7 +96,7 @@ export default function Memories() {
         {/* Mirror Cards - CRITICAL FIX: Removed all translate-y, added proper gaps */}
         <div className="relative max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center 
-                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-44">
+                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-20">
             
             {/* Card 1: NO MORE translate-y offset */}
             <motion.div
