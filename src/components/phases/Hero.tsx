@@ -163,18 +163,17 @@ export default function Hero() {
       </div>
 
       {/* Curtain Overlay */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showCurtain && (
           <>
             {/* Left Curtain */}
             <motion.div
-              initial={{ x: 0 }}
+              key="left-curtain"  // ADD THIS
+              initial={{ x: '0%' }}  // CHANGE from x: 0
               exit={{ x: '-100%' }}
               transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
-              className="fixed inset-y-0 left-0 w-1/2 bg-gradient-to-r from-coquette-pink to-gulabi-400 z-50"
-              style={{
-                boxShadow: '10px 0 30px rgba(0,0,0,0.1)'
-              }}
+              className="fixed inset-y-0 left-0 w-1/2 bg-gradient-to-r from-coquette-pink to-gulabi-400"
+              style={{ zIndex: 9999 }}  // ADD THIS, REMOVE className z-50
             >
               {/* Decorative edge pattern */}
               <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-rani-glow/20 to-transparent" />
@@ -196,10 +195,12 @@ export default function Hero() {
 
             {/* Center decoration on curtains */}
             <motion.div
-              initial={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5 }}
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
+              key="right-curtain"  // ADD THIS
+              initial={{ x: '0%' }}  // CHANGE from x: 0
+              exit={{ x: '100%' }}
+              transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
+              className="fixed inset-y-0 right-0 w-1/2 bg-gradient-to-l from-coquette-pink to-gulabi-400"
+              style={{ zIndex: 9999 }}  // ADD THIS, REMOVE className z-50
             >
               <Bow size={80} className="drop-shadow-2xl" />
             </motion.div>
