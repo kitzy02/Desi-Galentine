@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import MirrorCard from '../ui/MirrorCard'
-import GajraDivider from '../ui/GajraDivider'
 import WashiTape from '../ui/WashiTape'
 import Petal from '../ui/Petal'
 import { content } from '../../constants/content'
