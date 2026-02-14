@@ -71,85 +71,29 @@ export default function Memories() {
               {content.memories.title}
             </span>
           </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl text-charcoal-rose/70 italic"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {content.memories.subtitle}
-          </motion.p>
-
-          {/* Gajra Divider */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, type: 'spring' as const, stiffness: 120, damping: 14 }}
-            className="flex justify-center mt-8"
-          >
-            <GajraDivider />
-          </motion.div>
         </motion.div>
 
-        {/* Mirror Cards - CRITICAL FIX: Removed all translate-y, added proper gaps */}
-        <div className="relative max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center 
-                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-20">
-            
-            {/* Card 1: NO MORE translate-y offset */}
+        {/* Mirror Cards */}
+      <div className="relative max-w-6xl mx-auto">
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 
+                     justify-items-center 
+                     gap-y-8 md:gap-x-12"
+        >
+          {content.memories.cards.map((card, index) => (
             <motion.div
+              key={index}
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
+              viewport={{ once: true }}
             >
-              <MirrorCard
-                emoji={content.memories.cards[0].emoji}
-                label={content.memories.cards[0].label}
-                subtitle={content.memories.cards[0].subtitle}
-                message={content.memories.cards[0].message}
-                delay={0.2}
-              />
+              <MirrorCard {...card} delay={index * 0.2} />
             </motion.div>
-
-            {/* Card 2: NO MORE translate-y offset */}
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: '-50px' }}
-            >
-              <MirrorCard
-                emoji={content.memories.cards[1].emoji}
-                label={content.memories.cards[1].label}
-                subtitle={content.memories.cards[1].subtitle}
-                message={content.memories.cards[1].message}
-                delay={0.4}
-              />
-            </motion.div>
-
-            {/* Card 3: NO MORE translate-y offset */}
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: '-50px' }}
-            >
-              <MirrorCard
-                emoji={content.memories.cards[2].emoji}
-                label={content.memories.cards[2].label}
-                subtitle={content.memories.cards[2].subtitle}
-                message={content.memories.cards[2].message}
-                delay={0.6}
-              />
-            </motion.div>
-          </div>
-
-          {/* REMOVED: Decorative scattered emojis (☕💄🎬) - they were visual noise */}
+          ))}
         </div>
-
+      </div>
+      <br></br>
         {/* Continue Button - Now with guaranteed spacing above */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -167,9 +111,8 @@ export default function Memories() {
           >
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
                            transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            
             <span className="relative z-10 flex items-center gap-2">
-              Aage Badho
+              Next
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -189,11 +132,6 @@ export default function Memories() {
         >
           Click each mirror to flip and read the message
         </motion.p>
-      </div>
-
-      {/* Bottom Washi Tape */}
-      <div className="absolute bottom-0 left-1/4 pointer-events-none">
-        <WashiTape variant="floral" rotation={-5} className="opacity-50" />
       </div>
     </div>
   )

@@ -130,8 +130,8 @@ export default function Hero() {
             {/* Main Title - UPDATED: Playfair Display instead of Pinyon Script */}
             <motion.h1
               variants={fadeUp}
-              className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 gradient-text"
-              style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}
+              className="text-4xl md:text-7xl lg:text-6xl font-bold tracking-tight mb-6 gradient-text"
+              style={{ fontFamily: 'var(--font-display)' }}
             >
               {content.hero.greeting}
             </motion.h1>

@@ -26,7 +26,7 @@
   --color-chai: #8b6914;
 
   /* Fonts - UPDATED */
-  --font-display: 'Playfair Display', serif;
+  --font-display:"Open Sans", sans-serif;
   --font-body: 'Poppins', sans-serif;
 }
 
@@ -192,3 +192,21 @@ h1, h2, h3 {
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+.perspective {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+

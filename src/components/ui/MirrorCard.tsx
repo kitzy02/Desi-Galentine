@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
+import { useState } from "react"
 
 interface MirrorCardProps {
   emoji: string
@@ -9,161 +9,115 @@ interface MirrorCardProps {
   delay?: number
 }
 
-export default function MirrorCard({ 
-  emoji, 
-  label, 
-  subtitle, 
-  message, 
-  delay = 0 
+export default function MirrorCard({
+  emoji,
+  label,
+  subtitle,
+  message,
+  delay = 0,
 }: MirrorCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [flipped, setFlipped] = useState(false)
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, rotate: -5 }}
-      animate={{ 
-        opacity: 1, 
-        y: 0, 
-        rotateY: isFlipped ? 180 : 0,
-        rotate: 0 
-      }}
-      transition={{ 
-        duration: 0.6, 
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.6,
         delay,
-        type: 'spring' as const,
-        stiffness: 100
+        type: "spring",
+        stiffness: 100,
       }}
-      className="flip-card w-56 sm:w-64 h-72 sm:h-80 cursor-pointer"
-      onClick={() => setIsFlipped(!isFlipped)}
-      style={{ transformStyle: 'preserve-3d' }}
-    >      {/* FRONT SIDE - Mirror */}
-      <div 
-        className="absolute inset-0"
-        style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+      onClick={() => setFlipped(!flipped)}
+      whileHover={{ rotate: [0, -3, 3, 0] }}
+      className="relative w-[300px] h-[420px] cursor-pointer perspective"
+    >
+      <motion.div
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative w-full h-full preserve-3d"
       >
-        <motion.div
-          whileHover={{ 
-            scale: 1.03,
-            rotate: [0, -1, 1, -1, 0],
-            transition: { 
-              rotate: { 
-                duration: 0.8, 
-                repeat: Infinity,
-                repeatType: 'reverse' as const
-              },
-              scale: { duration: 0.2 }
-            }
-          }}
-          className="relative group"
+        {/* FRONT */}
+        <div
+          className="absolute inset-0 backface-hidden 
+                     bg-gradient-to-b from-pink-50 to-white
+                     rounded-[160px] 
+                     flex flex-col items-center justify-between
+                     p-6
+                     shadow-[0_20px_40px_rgba(227,11,93,0.15)]"
         >
-          <div className="relative w-full h-full bg-gradient-to-br from-marigold-sun via-haldi to-marigold-sun rounded-[50%] p-2 shadow-2xl 
-                        hover:shadow-[0_0_40px_rgba(245,197,24,0.4)] transition-shadow duration-300">
-            
-            <div className="relative w-full h-full bg-gradient-to-br from-pearl-petal to-gulabi-50 rounded-[50%] overflow-hidden
-                          border-4 border-marigold-sun/30">
-              
-              {/* Enhanced shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatDelay: 2,
-                  ease: 'easeInOut',
-                }}
-                style={{ width: '50%', transform: 'skewX(-20deg)' }}
-              />
+          {/* Shine Effect */}
+          <motion.div
+            className="absolute inset-0 rounded-[160px] 
+                       bg-gradient-to-r 
+                       from-transparent via-white/20 to-transparent"
+            animate={{ x: ["-100%", "100%"] }}
+            transition={{ duration: 4, repeat: Infinity }}
+          />
 
-              <div className="relative z-10 flex flex-col items-center justify-center h-full p-6">
-                <motion.div
-                  className="text-5xl mb-3"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                >
-                  {emoji}
-                </motion.div>
+          <div className="flex flex-col items-center text-center min-h-[140px] justify-center">
+            <div className="text-4xl mb-3">{emoji}</div>
 
-                <h3 className="text-xl font-bold text-rani-glow mb-2" style={{ fontFamily: 'var(--font-display)' }}>
-                  {label}
-                </h3>
+            <h3
+              className="text-xl font-semibold text-rani-glow"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {label}
+            </h3>
 
-                <p className="text-sm text-charcoal-rose/70 italic px-4 leading-relaxed text-center">
-                  {subtitle}
-                </p>
+            <p className="text-sm text-charcoal-rose/70 mt-2">
+              {subtitle}
+            </p>
+          </div>
 
-                <motion.p
-                  className="absolute bottom-4 text-xs text-marigold-sun font-medium"
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  Click to flip
-                </motion.p>
-              </div>
+          <div className="text-xs text-charcoal-rose/50 italic">
+            Tap to reveal 💌
+          </div>
+        </div>
 
-              {/* Decorative dots */}
-              <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-marigold-sun/50" />
-              <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-marigold-sun/50" />
-              <div className="absolute bottom-2 left-2 w-3 h-3 rounded-full bg-marigold-sun/50" />
-              <div className="absolute bottom-2 right-2 w-3 h-3 rounded-full bg-marigold-sun/50" />
+        {/* BACK */}
+        <div className="absolute inset-0 backface-hidden rotate-y-180">
+          <div
+            className="relative w-full h-full 
+                       bg-gradient-to-br from-pearl-petal to-gulabi-50 
+                       rounded-[160px] 
+                       p-6 
+                       shadow-[0_20px_40px_rgba(227,11,93,0.15)] 
+                       border-4 border-coquette-pink
+                       flex flex-col items-center justify-center text-center"
+          >
+            {/* Decorative Bow */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl">
+              🎀
             </div>
 
-            {/* Mirror stand */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-16 h-12 
-                          bg-gradient-to-b from-marigold-sun to-chai rounded-b-full
-                          shadow-lg border-2 border-marigold-sun/50" />
+            <div className="text-5xl mb-4">{emoji}</div>
+
+            <h3
+              className="text-2xl font-bold text-rani-glow mb-2"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {label}
+            </h3>
+
+            <p className="text-sm text-charcoal-rose/60 italic mb-4">
+              {subtitle}
+            </p>
+
+            <p className="text-sm text-charcoal-rose leading-relaxed px-2">
+              {message}
+            </p>
+
+            <motion.p
+              className="absolute bottom-4 text-xs text-rani-glow font-medium"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Click to flip back 💌
+            </motion.p>
           </div>
-        </motion.div>
-      </div>
-
-      {/* BACK SIDE - Message Card */}
-      <div 
-        className="absolute inset-0"
-        style={{ 
-          backfaceVisibility: 'hidden',
-          WebkitBackfaceVisibility: 'hidden',
-          transform: 'rotateY(180deg)'
-        }}
-      >
-        <div className="relative w-full h-full bg-gradient-to-br from-pearl-petal to-gulabi-50 
-                      rounded-3xl p-6 shadow-2xl border-4 border-coquette-pink
-                      flex flex-col items-center justify-center">
-          
-          {/* Decorative bow on top */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl">
-            🎀
-          </div>
-
-          <div className="text-5xl mb-4">{emoji}</div>
-
-          <h3 className="text-2xl font-bold text-center text-rani-glow mb-2" 
-              style={{ fontFamily: 'var(--font-display)' }}>
-            {label}
-          </h3>
-
-          <p className="text-sm text-center text-charcoal-rose/60 italic mb-4">
-            {subtitle}
-          </p>
-
-          <p className="text-sm text-charcoal-rose leading-relaxed text-center px-2">
-            {message}
-          </p>
-
-          {/* Click to flip back hint */}
-          <motion.p
-            className="absolute bottom-4 text-xs text-rani-glow font-medium"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Click to flip back
-          </motion.p>
-
-          {/* Mirror stand (back side) */}
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-16 h-12 
-                        bg-gradient-to-b from-marigold-sun to-chai rounded-b-full
-                        shadow-lg border-2 border-marigold-sun/50" />
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
