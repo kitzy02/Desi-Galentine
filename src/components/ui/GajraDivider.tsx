@@ -33,15 +33,15 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
         </radialGradient>
         {/* Leaf gradient */}
         <linearGradient id="leaf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#5a9e6f" />
-          <stop offset="100%" stopColor="#2d6a4f" />
+          <stop offset="0%" stopColor="#A5B38C" />
+          <stop offset="100%" stopColor="#8F9779" />
         </linearGradient>
       </defs>
 
       {/* Draped thread with natural curve */}
       <path
         d="M15 28 C60 22, 100 18, 170 20 S280 22, 325 28"
-        stroke="#2d6a4f"
+        stroke="#8F9779"
         strokeWidth="2"
         fill="none"
         opacity="0.5"
@@ -49,7 +49,7 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
       />
       <path
         d="M15 28 C60 22, 100 18, 170 20 S280 22, 325 28"
-        stroke="#5a9e6f"
+        stroke="#A5B38C"
         strokeWidth="1"
         fill="none"
         opacity="0.3"
@@ -72,7 +72,7 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
           />
           <path
             d="M1 0 L11 0"
-            stroke="#2d6a4f"
+            stroke="#8F9779"
             strokeWidth="0.4"
             opacity="0.5"
           />
@@ -147,7 +147,7 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
                   fill="url(#petal-grad-pink)"
                   stroke="#FFB3D0"
                   strokeWidth="0.3"
-                  opacity="0.9"
+                  opacity="0.85"
                   transform={`rotate(${p * 60 + 15}, ${Math.cos((p * 60 - 90) * Math.PI / 180) * 6}, ${Math.sin((p * 60 - 90) * Math.PI / 180) * 6})`}
                 />
               ))}
@@ -180,8 +180,8 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
 
       {/* End tassels - left */}
       <g transform="translate(15, 28)">
-        <path d="M0 0 C-3 8, -1 16, -4 24" stroke="#2d6a4f" strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round" />
-        <path d="M2 0 C4 8, 2 16, 5 22" stroke="#2d6a4f" strokeWidth="1" fill="none" opacity="0.4" strokeLinecap="round" />
+        <path d="M0 0 C-3 8, -1 16, -4 24" stroke="#8F9779" strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round" />
+        <path d="M2 0 C4 8, 2 16, 5 22" stroke="#8F9779" strokeWidth="1" fill="none" opacity="0.4" strokeLinecap="round" />
         {/* Tiny flowers on tassels */}
         <g transform="translate(-4, 24) scale(0.5)">
           {[0, 1, 2, 3, 4].map((p) => (
@@ -199,8 +199,8 @@ export default function GajraDivider({ className = '' }: GajraDividerProps) {
 
       {/* End tassels - right */}
       <g transform="translate(325, 28)">
-        <path d="M0 0 C3 8, 1 16, 4 24" stroke="#2d6a4f" strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round" />
-        <path d="M-2 0 C-4 8, -2 16, -5 22" stroke="#2d6a4f" strokeWidth="1" fill="none" opacity="0.4" strokeLinecap="round" />
+        <path d="M0 0 C3 8, 1 16, 4 24" stroke="#8F9779" strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round" />
+        <path d="M-2 0 C-4 8, -2 16, -5 22" stroke="#8F9779" strokeWidth="1" fill="none" opacity="0.4" strokeLinecap="round" />
         <g transform="translate(4, 24) scale(0.5)">
           {[0, 1, 2, 3, 4].map((p) => (
             <ellipse key={p} cx={Math.cos((p * 72 - 90) * Math.PI / 180) * 5} cy={Math.sin((p * 72 - 90) * Math.PI / 180) * 5} rx="4" ry="3" fill="#FFFEF0" opacity="0.8" />

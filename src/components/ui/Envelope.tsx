@@ -8,28 +8,28 @@ interface EnvelopeProps {
 export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
   return (
     <div className="relative w-80 h-64 md:w-96 md:h-80">
-      {/* Envelope Body */}
+      {/* Envelope Body - Soft dusty rose */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-48 md:h-56 bg-gradient-to-br from-coquette-pink to-gulabi-300 
-                   rounded-b-lg shadow-2xl"
+        className="absolute bottom-0 left-0 right-0 h-48 md:h-56 rounded-b-lg shadow-2xl"
         style={{
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          background: 'linear-gradient(135deg, #D4A3A7 0%, #C28B8F 100%)'
         }}
       >
-        {/* Envelope decorative pattern - INCREASED opacity */}
-        <div className="absolute inset-0 opacity-15"
+        {/* Envelope decorative pattern */}
+        <div className="absolute inset-0 opacity-10"
              style={{
                backgroundImage: `repeating-linear-gradient(
                  45deg,
                  transparent,
                  transparent 10px,
-                 rgba(227, 11, 93, 0.3) 10px,
-                 rgba(227, 11, 93, 0.3) 20px
+                 rgba(168, 115, 119, 0.3) 10px,
+                 rgba(168, 115, 119, 0.3) 20px
                )`
              }}
         />
 
-        {/* Heart decoration on envelope - REPOSITIONED to center of flap area */}
+        {/* Heart decoration on envelope */}
         <div className="absolute top-4 left-1/2 -translate-x-1/2 text-3xl opacity-60">
           💕
         </div>
@@ -59,35 +59,35 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
           <path
             d="M 0 0 L 160 128 L 320 0 Z"
             fill="url(#flap-gradient)"
-            stroke="#E30B5D"
+            stroke="#A87377"
             strokeWidth="2"
           />
           
-          {/* Gradient definition */}
+          {/* Gradient definition - soft vintage pink */}
           <defs>
             <linearGradient id="flap-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#FFB3D9" />
-              <stop offset="100%" stopColor="#FFC0CB" />
+              <stop offset="0%" stopColor="#E5C3CB" />
+              <stop offset="100%" stopColor="#D4A3A7" />
             </linearGradient>
           </defs>
 
-          {/* Decorative lines */}
+          {/* Decorative lines - subtle */}
           <path
             d="M 40 20 L 160 108"
-            stroke="#E30B5D"
+            stroke="#A87377"
             strokeWidth="1"
             opacity="0.2"
           />
           <path
             d="M 280 20 L 160 108"
-            stroke="#E30B5D"
+            stroke="#A87377"
             strokeWidth="1"
             opacity="0.2"
           />
         </svg>
       </motion.div>
 
-      {/* Wax Seal - SLIGHTLY LARGER on desktop */}
+      {/* Rose Wax Seal */}
       {!isOpen && (
         <motion.button
           onClick={onOpen}
@@ -95,10 +95,13 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
           whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
           whileTap={{ scale: 0.9 }}
         >
-          {/* Seal circle - INCREASED size */}
-          <div className="relative w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-rani-glow to-gulabi-700 
-                        rounded-full shadow-lg border-4 border-rani-glow/50
-                        flex items-center justify-center">
+          {/* Seal circle - dusty rose wax */}
+          <div className="relative w-16 h-16 md:w-24 md:h-24 rounded-full shadow-lg border-4 
+                        flex items-center justify-center"
+               style={{
+                 background: 'linear-gradient(135deg, #A87377 0%, #8E5B5F 100%)',
+                 borderColor: 'rgba(168, 115, 119, 0.5)'
+               }}>
             {/* Heart stamp */}
             <motion.div
               animate={{
@@ -113,9 +116,10 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
               💝
             </motion.div>
 
-            {/* Glow effect */}
+            {/* Soft glow effect */}
             <motion.div
-              className="absolute inset-0 rounded-full bg-rani-glow"
+              className="absolute inset-0 rounded-full"
+              style={{ backgroundColor: '#A87377' }}
               animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.5, 0, 0.5]
@@ -133,25 +137,37 @@ export default function Envelope({ isOpen, onOpen }: EnvelopeProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
             className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap
-                     text-sm text-rani-glow font-semibold"
+                     text-sm font-semibold"
+            style={{ 
+              fontFamily: 'var(--font-display)',
+              color: '#A87377'
+            }}
           >
             Click to open
           </motion.p>
         </motion.button>
       )}
 
-      {/* Letter peeking out (when opened) - SMOOTHER animation */}
+      {/* Letter peeking out (when opened) */}
       {isOpen && (
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: -60, opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }} // SLOWER: was 0.4/0.6
+          transition={{ delay: 0.6, duration: 0.8 }}
           className="absolute top-20 left-1/2 -translate-x-1/2 w-64 md:w-72 z-10"
         >
-          <div className="bg-pearl-petal rounded-lg shadow-xl p-4 border-2 border-coquette-pink">
+          <div className="rounded-lg shadow-xl p-4 border-2"
+               style={{
+                 backgroundColor: '#FDFBF7',
+                 borderColor: '#D4A3A7'
+               }}>
             <div className="text-center space-y-2">
               <div className="text-4xl">💌</div>
-              <p className="text-sm text-charcoal-rose italic">
+              <p className="text-sm italic"
+                 style={{ 
+                   fontFamily: 'var(--font-body)',
+                   color: '#2C2C2C'
+                 }}>
                 A special question inside...
               </p>
             </div>

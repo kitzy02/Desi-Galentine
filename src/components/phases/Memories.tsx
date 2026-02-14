@@ -20,7 +20,8 @@ export default function Memories() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
+    <div className="min-h-screen chikankari-bg relative overflow-hidden"
+         style={{ backgroundColor: '#FDFBF7' }}>
       {/* Floating Background Petals - MORE SUBTLE */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {petalSeeds.map((p) => (
@@ -41,7 +42,7 @@ export default function Memories() {
               ease: 'linear',
             }}
           >
-            <Petal size={p.size} className="text-coquette-pink" />
+            <Petal size={p.size} />
           </motion.div>
         ))}
       </div>
@@ -96,7 +97,7 @@ export default function Memories() {
         {/* Mirror Cards - CRITICAL FIX: Removed all translate-y, added proper gaps */}
         <div className="relative max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center 
-                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-20">
+                        gap-16 md:gap-x-12 md:gap-y-24 mb-36 lg:mb-44">
             
             {/* Card 1: NO MORE translate-y offset */}
             <motion.div

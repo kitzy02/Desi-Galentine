@@ -40,7 +40,8 @@ export default function Quiz() {
   }
 
   return (
-    <div className="min-h-screen bg-pearl-petal relative overflow-hidden">
+    <div className="min-h-screen chikankari-bg relative overflow-hidden"
+         style={{ backgroundColor: '#FDFBF7' }}>
       {/* Floating Background Petals - REDUCED from 8 to 5 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(5)].map((_, i) => (
@@ -65,20 +66,20 @@ export default function Quiz() {
               ease: "linear"
             }}
           >
-            <Petal size={12 + Math.random() * 12} className="text-coquette-pink" />
+            <Petal size={12 + Math.random() * 12} />
           </motion.div>
         ))}
       </div>
 
       {/* Leheriya Pattern Background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none"
+      <div className="absolute inset-0 opacity-3 pointer-events-none"
            style={{
              backgroundImage: `repeating-linear-gradient(
                45deg,
                transparent,
                transparent 35px,
-               #FFC0CB 35px,
-               #FFC0CB 70px
+               #D4A3A7 35px,
+               #D4A3A7 70px
              )`
            }}
       />
@@ -125,12 +126,19 @@ export default function Quiz() {
               className={`
                 w-3 h-3 rounded-full transition-all duration-300
                 ${answers[questions[index].id] !== null
-                  ? 'bg-rani-glow w-8' // STATIC when answered (no animation)
+                  ? 'w-8'
                   : currentQuestion === index
-                    ? 'bg-gulabi-400'
-                    : 'bg-gulabi-200'
+                    ? ''
+                    : ''
                 }
               `}
+              style={{
+                backgroundColor: answers[questions[index].id] !== null
+                  ? '#A87377'
+                  : currentQuestion === index
+                    ? '#C28B8F'
+                    : '#E5C3CB'
+              }}
               animate={{
                 scale: currentQuestion === index && answers[questions[index].id] === null
                   ? [1, 1.2, 1]
@@ -229,6 +237,21 @@ export default function Quiz() {
               transition={{ duration: 0.6, type: "spring" }}
               className="max-w-2xl mx-auto text-center"
             >
+              {/* Decorative elements */}
+              <motion.div
+                animate={{
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity
+                }}
+                className="text-6xl mb-6"
+              >
+                💕
+              </motion.div>
+
               {/* Result card */}
               <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl 
                            border-4 border-coquette-pink mb-8">
@@ -245,6 +268,28 @@ export default function Quiz() {
                 >
                   {content.quiz.cta}
                 </motion.p>
+
+                {/* Decorative sparkles */}
+                <div className="flex justify-center gap-4 mt-6 text-3xl">
+                  <motion.span
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    ✨
+                  </motion.span>
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    🎀
+                  </motion.span>
+                  <motion.span
+                    animate={{ rotate: [0, -360] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    ✨
+                  </motion.span>
+                </div>
               </div>
 
               {/* Continue Button */}

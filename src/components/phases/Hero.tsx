@@ -5,12 +5,12 @@ import Bow from '../ui/Bow'
 import Petal from '../ui/Petal'
 import { content } from '../../constants/content'
 
-// REDUCED from 8 to 5 petals for less visual noise
+// Reduced petals for subtlety
 const petalConfigs = Array.from({ length: 5 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
   size: 20 + Math.random() * 20,
-  duration: 25 + Math.random() * 15, // SLOWER: was 15-25, now 25-40
+  duration: 30 + Math.random() * 15,
   delay: Math.random() * 5,
   rotateEnd: Math.random() * 360 + 720,
 }))
@@ -27,7 +27,6 @@ export default function Hero() {
     if (isAnimating) return
     setIsAnimating(true)
     setShowCurtain(false)
-    // INCREASED delay for smoother transition: was 1000ms, now 1400ms
     setTimeout(() => {
       setContentReady(true)
     }, 1400)
@@ -64,8 +63,9 @@ export default function Hero() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-pearl-petal">
-      {/* Floating Petals Background - Only animate AFTER curtain opens */}
+    <div className="relative min-h-screen overflow-hidden chikankari-bg"
+         style={{ backgroundColor: '#FDFBF7' }}>
+      {/* Floating Petals Background - Gentle & Subtle */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {petalConfigs.map((p) => (
           <motion.div
@@ -78,7 +78,7 @@ export default function Hero() {
                 ? {
                     y: '100vh',
                     rotate: p.rotateEnd,
-                    opacity: [0, 0.3, 0.25, 0.3, 0], // MORE SUBTLE: was 0.7
+                    opacity: [0, 0.2, 0.15, 0.2, 0],
                   }
                 : {}
             }
@@ -89,7 +89,7 @@ export default function Hero() {
               ease: 'linear',
             }}
           >
-            <Petal size={p.size} className="text-coquette-pink" />
+            <Petal size={p.size} />
           </motion.div>
         ))}
       </div>
@@ -103,7 +103,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            {/* Decorative Bows - desktop only, REDUCED amplitude */}
+            {/* Decorative Bows - desktop only, gentle float */}
             <motion.div
               variants={fadeUp}
               className="absolute top-8 left-8 hidden md:block"
@@ -127,54 +127,75 @@ export default function Hero() {
               {content.hero.emoji}
             </motion.p>
 
-            {/* Main Title - UPDATED: Playfair Display instead of Pinyon Script */}
+            {/* Main Title - Romantic italic Playfair */}
             <motion.h1
               variants={fadeUp}
-              className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 gradient-text"
-              style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic' }}
+              className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+              style={{ 
+                fontFamily: 'var(--font-display)', 
+                fontStyle: 'italic',
+                background: 'linear-gradient(135deg, #8E5B5F 0%, #C28B8F 50%, #D4A3A7 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundSize: '200% 200%',
+                animation: 'shimmer 4s linear infinite'
+              }}
             >
               {content.hero.greeting}
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Subtitle - Poetic */}
             <motion.p
               variants={fadeUp}
-              className="text-lg md:text-xl text-charcoal-rose/80 mb-14 max-w-md italic leading-relaxed"
-              style={{ fontFamily: 'var(--font-display)' }}
+              className="text-lg md:text-xl mb-14 max-w-md italic leading-relaxed"
+              style={{ 
+                fontFamily: 'var(--font-display)',
+                color: 'rgba(44, 44, 44, 0.8)'
+              }}
             >
               {content.hero.subtitle}
             </motion.p>
 
-            {/* CTA Button - SIMPLIFIED: No sparkles, hover-only animation */}
+            {/* CTA Button - Soft gradient with brass shimmer */}
             <motion.div variants={fadeUp} className="relative">
               <motion.button
                 onClick={handleNavigate}
-                className="relative px-10 py-4 bg-gradient-to-r from-rani-glow to-gulabi-500 
-                         text-white rounded-full text-lg md:text-xl font-medium shadow-lg 
-                         hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                className="relative px-10 py-4 text-white rounded-full text-lg md:text-xl 
+                         font-medium shadow-lg hover:shadow-2xl transition-all duration-300 
+                         overflow-hidden group cursor-pointer"
+                style={{
+                  background: 'linear-gradient(to right, #A87377, #8E5B5F)',
+                  fontFamily: 'var(--font-body)'
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent 
-                               transform -skew-x-12 -translate-x-full group-hover:translate-x-full 
-                               transition-transform duration-1000" />
+                <span className="absolute inset-0 transform -skew-x-12 -translate-x-full 
+                               group-hover:translate-x-full transition-transform duration-1000"
+                      style={{
+                        background: 'linear-gradient(to right, transparent, rgba(212, 175, 106, 0.15), transparent)'
+                      }} />
                 <span className="relative z-10">{content.hero.cta}</span>
               </motion.button>
             </motion.div>
 
-            {/* Bottom decorative text - Better responsive positioning */}
+            {/* Bottom decorative text */}
             <motion.p
               variants={fadeUp}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-charcoal-rose/50 italic px-4 text-center"
-              style={{ fontFamily: 'var(--font-display)' }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm italic px-4 text-center"
+              style={{ 
+                fontFamily: 'var(--font-display)',
+                color: 'rgba(44, 44, 44, 0.5)'
+              }}
             >
-              A little garden of love, just for you...
+              Ek chhoti si baghiya, mehekti huyi yaadon se bhari...
             </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Curtain Overlay */}
+      {/* Curtain Overlay - Soft dusty rose */}
       <AnimatePresence>
         {showCurtain && (
           <>
@@ -187,7 +208,10 @@ export default function Hero() {
               className="fixed inset-y-0 left-0 w-1/2"
               style={{ zIndex: 9999 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#d4607a] via-coquette-pink to-[#f5a0b5]" />
+              <div className="absolute inset-0"
+                   style={{
+                     background: 'linear-gradient(to right, #C28B8F, #D4A3A7, #E5C3CB)'
+                   }} />
               <div className="absolute inset-0 opacity-[0.07]" style={{
                 backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.15) 40px, rgba(0,0,0,0.15) 41px)',
               }} />
@@ -203,14 +227,17 @@ export default function Hero() {
               className="fixed inset-y-0 right-0 w-1/2"
               style={{ zIndex: 9999 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-l from-[#d4607a] via-coquette-pink to-[#f5a0b5]" />
+              <div className="absolute inset-0"
+                   style={{
+                     background: 'linear-gradient(to left, #C28B8F, #D4A3A7, #E5C3CB)'
+                   }} />
               <div className="absolute inset-0 opacity-[0.07]" style={{
                 backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.15) 40px, rgba(0,0,0,0.15) 41px)',
               }} />
               <div className="absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-black/10 to-transparent" />
             </motion.div>
 
-            {/* Center seam glow */}
+            {/* Center seam glow - softer */}
             <motion.div
               key="curtain-seam"
               initial={{ opacity: 0.6 }}
@@ -219,7 +246,7 @@ export default function Hero() {
               className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-[2px]"
               style={{
                 zIndex: 10000,
-                background: 'linear-gradient(to bottom, transparent, rgba(227,11,93,0.3), transparent)',
+                background: 'linear-gradient(to bottom, transparent, rgba(168, 115, 119, 0.3), transparent)',
               }}
             />
 

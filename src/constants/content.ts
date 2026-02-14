@@ -3,7 +3,7 @@
 export const content = {
     hero: {
       greeting: 'Pyaari Sakhi',
-      subtitle: 'A little something for the most special person in my life...',
+      subtitle: 'Ek chhoti si baghiya, mehekti huyi yaadon se bhari...',
       cta: 'Shuru Karein? 💕',
       emoji: '🌸',
     },

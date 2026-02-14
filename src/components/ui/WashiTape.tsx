@@ -11,33 +11,33 @@ export default function WashiTape({
 }: WashiTapeProps) {
   const patterns = {
     pink: {
-      fill: '#FFC0CB',
+      fill: '#D4A3A7',
       pattern: (
         <>
-          <circle cx="5" cy="5" r="1.5" fill="#E30B5D" opacity="0.3" />
-          <circle cx="15" cy="5" r="1.5" fill="#E30B5D" opacity="0.3" />
-          <circle cx="10" cy="8" r="1" fill="#FFB347" opacity="0.4" />
+          <circle cx="5" cy="5" r="1.5" fill="#A87377" opacity="0.4" />
+          <circle cx="15" cy="5" r="1.5" fill="#A87377" opacity="0.4" />
+          <circle cx="10" cy="8" r="1" fill="#C5A059" opacity="0.3" />
         </>
       )
     },
     gold: {
-      fill: '#FFB347',
+      fill: '#C5A059',
       pattern: (
         <>
-          <path d="M2 5 L8 5" stroke="#f5c518" strokeWidth="0.5" opacity="0.6" />
-          <path d="M12 5 L18 5" stroke="#f5c518" strokeWidth="0.5" opacity="0.6" />
+          <path d="M2 5 L8 5" stroke="#D4AF6A" strokeWidth="0.5" opacity="0.6" />
+          <path d="M12 5 L18 5" stroke="#D4AF6A" strokeWidth="0.5" opacity="0.6" />
           <circle cx="5" cy="8" r="0.8" fill="#8b6914" opacity="0.3" />
         </>
       )
     },
     floral: {
-      fill: '#FFB3D9',
+      fill: '#E5C3CB',
       pattern: (
         <>
-          <circle cx="5" cy="5" r="2" fill="#E30B5D" opacity="0.2" />
-          <circle cx="5" cy="5" r="1" fill="#FFC0CB" opacity="0.4" />
-          <circle cx="15" cy="5" r="2" fill="#E30B5D" opacity="0.2" />
-          <circle cx="15" cy="5" r="1" fill="#FFC0CB" opacity="0.4" />
+          <circle cx="5" cy="5" r="2" fill="#C28B8F" opacity="0.2" />
+          <circle cx="5" cy="5" r="1" fill="#D4A3A7" opacity="0.4" />
+          <circle cx="15" cy="5" r="2" fill="#C28B8F" opacity="0.2" />
+          <circle cx="15" cy="5" r="1" fill="#D4A3A7" opacity="0.4" />
         </>
       )
     }

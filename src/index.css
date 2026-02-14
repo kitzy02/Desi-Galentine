@@ -1,39 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  /* PRD-Accurate Color Palette */
-  --color-pearl-petal: #FFF9F0;
-  --color-coquette-pink: #FFC0CB;
-  --color-rani-glow: #E30B5D;
-  --color-marigold-sun: #FFB347;
-  --color-charcoal-rose: #4A3737;
+  /* Gulabi Coquette - Soft Heritage Palette */
+  /* PRIMARY COLORS - The Foundation */
+  --color-mogra-white: #FDFBF7;
+  --color-rooh-afza: #D4A3A7;
+  --color-aged-brass: #C5A059;
+  --color-kaajal: #2C2C2C;
+  --color-pearl-grey: #E2E2E2;
   
-  /* Gulabi Gradient Palette */
-  --color-gulabi-50: #fff0f6;
-  --color-gulabi-100: #ffd6e7;
-  --color-gulabi-200: #ffadd2;
-  --color-gulabi-300: #ff85c0;
-  --color-gulabi-400: #f759ab;
-  --color-gulabi-500: #eb2f96;
-  --color-gulabi-600: #c41d7f;
-  --color-gulabi-700: #9e1068;
-  --color-gulabi-800: #780650;
-  --color-gulabi-900: #520339;
+  /* PINK GRADIENT - Faded & Romantic (like dyed silk) */
+  --color-gulabi-50: #F9F0F3;
+  --color-gulabi-100: #EFD9DF;
+  --color-gulabi-200: #E5C3CB;
+  --color-gulabi-300: #D4A3A7;
+  --color-gulabi-400: #C28B8F;
+  --color-gulabi-500: #A87377;
+  --color-gulabi-600: #8E5B5F;
+  --color-gulabi-700: #6B4347;
   
-  /* Accent Colors */
-  --color-haldi: #f5c518;
-  --color-mehndi: #2d6a4f;
+  /* ACCENT COLORS - Grounded & Natural */
+  --color-faded-mehendi: #8F9779;
+  --color-chai-spice: #8b6914;
+  --color-brass-highlight: #D4AF6A;
+  
+  /* LEGACY ALIASES (for gradual migration) */
+  --color-pearl-petal: #FDFBF7;
+  --color-coquette-pink: #D4A3A7;
+  --color-rani-glow: #A87377;
+  --color-marigold-sun: #C5A059;
+  --color-charcoal-rose: #2C2C2C;
+  --color-haldi: #C5A059;
+  --color-mehndi: #8F9779;
   --color-chai: #8b6914;
 
-  /* Fonts - UPDATED */
+  /* FONTS - Gulabi Coquette Typography */
   --font-display: 'Playfair Display', serif;
-  --font-body: 'Poppins', sans-serif;
+  --font-body: 'Crimson Text', serif;
+  --font-script: 'Cormorant Garamond', serif;
 }
 
 /* Global Styles */
 body {
   font-family: var(--font-body);
-  background-color: var(--color-pearl-petal);
+  background-color: var(--color-mogra-white);
   overflow-x: hidden;
 }
 
@@ -41,40 +51,41 @@ h1, h2, h3 {
   font-family: var(--font-display);
 }
 
-/* UPDATED ANIMATIONS - More Subtle & Professional */
+/* GULABI COQUETTE ANIMATIONS - Gentle & Natural */
 
-/* Reduced float amplitude */
+/* Gentler float - like silk in a breeze */
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-10px) rotate(2deg);
+    transform: translateY(-5px) rotate(1deg);
   }
 }
 
-/* New subtle glow for buttons */
+/* Softer, warmer glow - like brass lamp light */
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(227, 11, 93, 0.3);
+    box-shadow: 0 0 15px rgba(196, 139, 143, 0.2);
   }
   50% {
-    box-shadow: 0 0 30px rgba(227, 11, 93, 0.5);
+    box-shadow: 0 0 25px rgba(196, 139, 143, 0.35);
   }
 }
 
-/* Slowed down sparkle */
+/* Subtler sparkle - like distant stars */
 @keyframes sparkle {
   0%, 100% {
     opacity: 0;
     transform: scale(0) rotate(0deg);
   }
   50% {
-    opacity: 0.6;
-    transform: scale(0.8) rotate(180deg);
+    opacity: 0.4;
+    transform: scale(0.6) rotate(180deg);
   }
 }
 
+/* Slower shimmer - like light on water */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -95,12 +106,13 @@ h1, h2, h3 {
   }
 }
 
+/* Gentler swing - like a gajra swaying */
 @keyframes swing {
   0%, 100% {
-    transform: rotate(-2deg);
+    transform: rotate(-1deg);
   }
   50% {
-    transform: rotate(2deg);
+    transform: rotate(1deg);
   }
 }
 
@@ -111,6 +123,22 @@ h1, h2, h3 {
   }
   100% {
     transform: rotateY(180deg);
+  }
+}
+
+/* NEW: Lotus bloom animation */
+@keyframes bloom {
+  0% { 
+    transform: scale(0.95) rotate(-2deg); 
+    opacity: 0.9; 
+  }
+  50% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: scale(0.95) rotate(2deg); 
+    opacity: 0.9; 
   }
 }
 
@@ -133,7 +161,11 @@ h1, h2, h3 {
 
 .animate-swing {
   transform-origin: top center;
-  animation: swing 4s ease-in-out infinite;
+  animation: swing 5s ease-in-out infinite;
+}
+
+.animate-bloom {
+  animation: bloom 6s ease-in-out infinite;
 }
 
 /* Typography helpers */
@@ -145,22 +177,29 @@ h1, h2, h3 {
   font-family: var(--font-body);
 }
 
-/* Gradient Text Effect */
+.text-script {
+  font-family: var(--font-script);
+}
+
+/* Gradient Text Effect - Softer, more romantic */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-rani-glow) 0%, var(--color-gulabi-500) 50%, var(--color-gulabi-400) 100%);
+  background: linear-gradient(135deg, 
+    var(--color-gulabi-600) 0%, 
+    var(--color-gulabi-400) 50%, 
+    var(--color-gulabi-300) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 200%;
-  animation: shimmer 3s linear infinite;
+  animation: shimmer 4s linear infinite;
 }
 
 /* Glass morphism effect */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(253, 251, 247, 0.25);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(212, 163, 167, 0.18);
 }
 
 /* Flip card container */
@@ -191,4 +230,22 @@ h1, h2, h3 {
 
 .flip-card-back {
   transform: rotateY(180deg);
+}
+
+/* NEW: Chikankari background texture */
+.chikankari-bg {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(197, 160, 89, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(143, 151, 121, 0.02) 0%, transparent 50%);
+}
+
+/* NEW: Block-print texture */
+.block-print-bg {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 15px,
+    rgba(212, 163, 167, 0.02) 15px,
+    rgba(212, 163, 167, 0.02) 30px
+  );
 }

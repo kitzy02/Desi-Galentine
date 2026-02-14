@@ -24,14 +24,14 @@ export default function PolaroidCard({
       initial={{ 
         opacity: 0, 
         y: 50,
-        rotate: side === 'left' ? -6 : 6 // REDUCED: was -15/15
+        rotate: side === 'left' ? -6 : 6
       }}
       animate={{ 
         opacity: 1, 
         y: 0,
         rotate: isSelected 
           ? 0 
-          : (side === 'left' ? -4 : 4) // REDUCED: was -8/8
+          : (side === 'left' ? -4 : 4)
       }}
       whileHover={{
         scale: 1.05,
@@ -52,19 +52,21 @@ export default function PolaroidCard({
         ${isSelected ? 'z-20' : 'z-10'}
       `}
     >
-      {/* Polaroid Frame - RESPONSIVE SIZING */}
+      {/* Polaroid Frame - Vintage white with soft shadows */}
       <div className={`
         relative w-56 sm:w-64 h-72 sm:h-80 bg-white rounded-lg shadow-2xl p-4
         transition-all duration-300
         ${isSelected 
-          ? 'ring-4 ring-rani-glow shadow-[0_0_30px_rgba(227,11,93,0.5)]' 
-          : 'shadow-xl hover:shadow-2xl'
+          ? 'ring-4 ring-[#A87377] shadow-[0_0_30px_rgba(168,115,119,0.5)]' 
+          : 'shadow-xl hover:shadow-2xl ring-4 ring-transparent'
         }
       `}>
-        {/* Photo Area */}
-        <div className="relative w-full h-48 sm:h-56 bg-gradient-to-br from-pearl-petal to-gulabi-100 
-                      rounded-sm overflow-hidden flex items-center justify-center
-                      border-2 border-gray-100">
+        {/* Photo Area - Soft vintage background */}
+        <div className="relative w-full h-48 sm:h-56 rounded-sm overflow-hidden 
+                      flex items-center justify-center border-2 border-gray-100"
+             style={{
+               background: 'linear-gradient(135deg, #FDFBF7 0%, #EFD9DF 100%)'
+             }}>
           
           {/* Emoji/Content */}
           <motion.div
@@ -87,8 +89,11 @@ export default function PolaroidCard({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="absolute inset-0 bg-rani-glow/10 backdrop-blur-[1px]
-                       flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                backgroundColor: 'rgba(168, 115, 119, 0.1)',
+                backdropFilter: 'blur(1px)'
+              }}
             >
               <motion.div
                 initial={{ scale: 0 }}
@@ -101,33 +106,41 @@ export default function PolaroidCard({
             </motion.div>
           )}
 
-          {/* Vintage photo effect */}
-          <div className="absolute inset-0 pointer-events-none
-                        bg-gradient-to-b from-white/10 via-transparent to-black/5" />
+          {/* Vintage photo effect - faded edges */}
+          <div className="absolute inset-0 pointer-events-none"
+               style={{
+                 background: 'linear-gradient(to bottom, rgba(255,255,255,0.1), transparent 20%, transparent 80%, rgba(0,0,0,0.05))'
+               }} />
         </div>
 
         {/* Label Area (bottom white space of polaroid) */}
         <div className="mt-3 space-y-1">
           <h3 className={`
-            text-xl font-bold text-center
-            ${isSelected ? 'text-rani-glow' : 'text-charcoal-rose'}
-            transition-colors duration-300
+            text-xl font-bold text-center transition-colors duration-300
           `}
-          style={{ fontFamily: 'var(--font-display)' }}>
+          style={{ 
+            fontFamily: 'var(--font-display)',
+            color: isSelected ? '#A87377' : '#2C2C2C'
+          }}>
             {label}
           </h3>
           
           {subtitle && (
-            <p className="text-sm text-charcoal-rose/60 italic text-center">
+            <p className="text-sm italic text-center"
+               style={{ color: 'rgba(44, 44, 44, 0.6)' }}>
               {subtitle}
             </p>
           )}
         </div>
 
-        {/* Tape effect on top - MORE VISIBLE */}
+        {/* Tape effect on top - Rooh Afza pink */}
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 
-                      bg-coquette-pink/60 backdrop-blur-sm rounded-sm
-                      shadow-md border border-coquette-pink/50" />
+                      rounded-sm shadow-md border"
+             style={{
+               backgroundColor: 'rgba(212, 163, 167, 0.6)',
+               backdropFilter: 'blur(4px)',
+               borderColor: 'rgba(212, 163, 167, 0.5)'
+             }} />
 
         {/* Corner fold effect */}
         <div className="absolute bottom-4 right-4 w-0 h-0 
@@ -148,8 +161,11 @@ export default function PolaroidCard({
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute inset-0 rounded-lg border-4 border-rani-glow -z-10"
-          style={{ filter: 'blur(10px)' }}
+          className="absolute inset-0 rounded-lg border-4 -z-10"
+          style={{ 
+            borderColor: '#A87377',
+            filter: 'blur(10px)' 
+          }}
         />
       )}
 
